@@ -8,41 +8,27 @@ var ticTacToe = [
 
 var currentTurn = "O";
 
-function updateCells(row, col, turn) {
-    ticTacToe[row][col] = turn
-}
-
-function getCell(row, column) {
-    return ticTacToe[row][column]
-}
 
 
 
-function play(cell) {
-    let row = parseInt(cell.getAttribute("row"));
-    let col = parseInt(cell.getAttribute("col"));
+function play(x,y) {
+    let row = x;
+    let col = y;
     if (ticTacToe[row][col] == "") {
         updateCells(row, col, currentTurn)
         currentTurn == "O" ? currentTurn = "X" : currentTurn = "O";
     }
     if (winningCondition(ticTacToe)) {
         return content.innerHTML = `<div class="container align-items-center text-center">
-                            <h2 >The winner is ${winningCondition(ticTacToe)}!</h2>
-                            <button onclick="resetGame()" class="btn btn-primary" style="width: 100px;" type="submit">Play again!</button>
-                            </div>`
+        <h2 >The winner is ${winningCondition(ticTacToe)}!</h2>
+        <button onclick="resetGame()" class="btn btn-primary" style="width: 100px;" type="submit">Play again!</button>
+        </div>`
     }
-    return content.innerHTML = renderGame(ticTacToe);
+    return content.innerHTML = renderBoard(ticTacToe);
 }
 
-function resetGame() {
-    ticTacToe = [
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""]
-    ];
-    return content.innerHTML = renderGame(ticTacToe)
-}
 
+//Check if any of the winning conditions are met.
 function winningCondition(board) {
     if (checkRow(0, "X") || checkRow(1, "X") || checkRow(2, "X") || checkCol(0, "X") || checkCol(1, "X") || checkCol(2, "X") || checkDiagonals("X")) {
         return "X"
@@ -51,10 +37,18 @@ function winningCondition(board) {
     } else {
         return false
     }
-
+    
 }
 
 
+//Functions to target individual cells in our 3x3 array.
+function updateCells(row, col, turn) {
+    ticTacToe[row][col] = turn
+}
+
+function getCell(row, column) {
+return ticTacToe[row][column]
+}
 //Check all the cells in a row to see if they match up
 function checkRow(row, player) {
     return ticTacToe[row].every(e => { return e == player });
@@ -68,35 +62,45 @@ function checkCol(col, player) {
 function checkDiagonals(player) {
     let diag = [ticTacToe[0][2]]
     return (getCell(0, 0) === player && getCell(1, 1) === player && getCell(2, 2) == player) ||
-        (getCell(0, 2) === player && getCell(1, 1) === player && getCell(2, 0) == player);
+    (getCell(0, 2) === player && getCell(1, 1) === player && getCell(2, 0) == player);
 }
 
-content.innerHTML = renderGame(ticTacToe);
 
 
 
+//Render the board for the tic tac toe which is a 3x3 matrix that we can follow with
+//Two nest for loops.
+function renderBoard(game){
+    let container =[];
+    for (let i = 0; i < game.length; i++) {
+        var row = game[i];
+        container.push(`<div class="w-50 text-center justify-items-around">`)
+        for (let j = 0; j < row.length; j++) {
+            var cell = row[j];
+            let cellHTML=`<button onclick="play(${i},${j})" class="mx-2 my-1" style="height: 30px;">${cell}</button>`
+            container.push(cellHTML)
+        }
+        container.push(`</div>`)
+    }
+    return `<div class="container d-flex flex-column justify-content-start align-items-center" id="board">
+    <h4 id="header">It's player ${currentTurn}'s turn!</h4>
+    ${container.join('')}
+    <button onclick="resetGame()" class="btn btn-primary" style="width: 100px;" type="submit">Reset</button>
+    </div>
+    `}
+    
+    //This function can wipe out the board and restart the game.
+    function resetGame() {
+        ticTacToe = [
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""]
+        ];
+        return content.innerHTML = renderBoard(ticTacToe)
+    }
+    
 
-function renderGame(game) {
-    // Change this render function to use the "game" parameter
-    return `
-        <div class="container d-flex flex-column justify-content-start align-items-center" id="board">
-            <h4 id="header">It's player ${currentTurn}'s turn!</h4>
-            <div class="w-50 text-center justify-items-around">
-            <button onclick="play(this)" row="0" col="0" style="height: 30px;">${game[0][0]}</button>
-            <button onclick="play(this)" row="0" col="1" style="height: 30px;">${game[0][1]}</button>
-            <button onclick="play(this)" row="0" col="2" style="height: 30px;">${game[0][2]}</button>
-            </div>
-            <div class="w-50 text-center justify-items-around py-2">
-            <button onclick="play(this)" row="1" col="0" style="height: 30px;">${game[1][0]}</button>
-            <button onclick="play(this)" row="1" col="1" style="height: 30px;">${game[1][1]}</button>
-            <button onclick="play(this)" row="1" col="2" style="height: 30px;">${game[1][2]}</button>
-            </div>
-            <div class="w-50 text-center justify-items-around">
-            <button onclick="play(this)" row="2" col="0" style="height: 30px;">${game[2][0]}</button>
-            <button onclick="play(this)" row="2" col="1" style="height: 30px;">${game[2][1]}</button>
-            <button onclick="play(this)" row="2" col="2" style="height: 30px;">${game[2][2]}</button>
-            </div>
-            <button onclick="resetGame()" class="btn btn-primary" style="width: 100px;" type="submit">Reset</button>
-        </div>
-    `
-}
+
+
+content.innerHTML = renderBoard(ticTacToe);
+
