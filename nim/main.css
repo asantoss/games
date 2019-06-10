@@ -6,6 +6,9 @@
     display: inline-block;
 }
 
-.pebble:first-child {
-    background-color: #ffb600
+.pebble:nth-child(2n) {
+    background-color: red;
+}
+.pebble:nth-child(2n-1) {
+    background-color: blue;
 }
