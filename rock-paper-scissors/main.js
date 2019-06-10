@@ -26,10 +26,10 @@ function play(choice) {
     playerChoice = choice
     if (choice == computerChoice) {
         winner = 'Tie!'
-    } else if (computerChoice == choiceConditions[0]) {
+    } else if (computerChoice == choiceConditions[1]) {
         winner = 'Player wins!';
         playerScore += 1;
-    } else if (computerChoice == choiceConditions[1]) {
+    } else if (computerChoice == choiceConditions[0]) {
         winner = 'Computer Wins!';
         computerScore += 1;
     }
