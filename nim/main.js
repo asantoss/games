@@ -1,13 +1,13 @@
 var content = document.getElementById('content');
 
-
+//This is the abstraction of nim..
 var nim = 16;
 var currentTurn = "player 1"
 var p1PebblesCount = 0;
 var p2PebblesCount = 0;
 var p1Pebbles = [];
 var p2Pebbles = [];
-
+//Our game uses this function to clear the board.
 function reset(){
 nim = 16;
 currentTurn = "player 1"
@@ -19,11 +19,10 @@ content.innerHTML=renderGame(nim)
 }
 
 content.innerHTML = renderGame(nim);
-
+//This function renders our html for all the pebbles.
 function renderGame(game) {
     
-    // Change this render function to use the "game" parameter
-    
+    // This is all the HTML we are displaying on our board.
     return `
     <div class="container-fluid d-flex flex-column justify-content-start align-items-center">
     <h4>There are ${nim} pebbles left</h4>
@@ -67,17 +66,26 @@ function renderGame(game) {
     </div>
     `
 }
+
+
+//This function takes the HTML returned by our rendering function and manipulates it.
 function play(){
     x = document.getElementById('takeInput').value;
 if(nim - x != 0) {
+
+    //This is our abstraction of the math that powers nims rules.
 let pebblesHTML = [];
 let pebble = `<div class="pebble"></div>`
 let p1Pebble = `<div class="pebble mx-1 my-2" style="background-color: red;"></div> `
 let p2Pebble = `<div class="pebble mx-1" style="background-color: blue;"></div> `
 nim -= x;
+
+//Every time the function is ran the amount of pebbles on the board is rerendered.
 for (var i = 0; i < nim; i++) {
     pebblesHTML.push(pebble)
 }
+
+//Since the return of rerendering the board html these give us the score for each player.
 if(currentTurn === "player 1"){ 
     currentTurn = "player 2"; 
     p1PebblesCount += x;
@@ -91,6 +99,7 @@ if(currentTurn === "player 1"){
         p2Pebbles.push(p2Pebble)
     }
 } 
+
 content.innerHTML= renderGame(nim)
 document.getElementById('pebble-container').innerHTML = pebblesHTML.join('');
 document.getElementById('p1').innerHTML = p1Pebbles.join('');
@@ -98,6 +107,9 @@ document.getElementById('p2').innerHTML = p2Pebbles.join('');
 document.getElementById('pebble-container').innerHTML = pebblesHTML.join('');
 return 
 }else{
+
+    //This is our winning condition that returns once the amount of marbles on the board
+    //hits 0.
     content.innerHTML = renderGame(nim)
     document.getElementById('p1').innerHTML = p1Pebbles.join('');
     document.getElementById('p2').innerHTML = p2Pebbles.join('');
