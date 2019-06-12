@@ -71,7 +71,7 @@ function renderGame(game) {
 //This function takes the HTML returned by our rendering function and manipulates it.
 function play(){
     x = document.getElementById('takeInput').value;
-if(nim - x != 0) {
+if(nim - x > 0) {
 
     //This is our abstraction of the math that powers nims rules.
 let pebblesHTML = [];
@@ -106,10 +106,11 @@ document.getElementById('p1').innerHTML = p1Pebbles.join('');
 document.getElementById('p2').innerHTML = p2Pebbles.join('');
 document.getElementById('pebble-container').innerHTML = pebblesHTML.join('');
 return 
-}else{
+}else if(nim - x <= 0){
 
     //This is our winning condition that returns once the amount of marbles on the board
     //hits 0.
+    nim = 0;
     content.innerHTML = renderGame(nim)
     document.getElementById('p1').innerHTML = p1Pebbles.join('');
     document.getElementById('p2').innerHTML = p2Pebbles.join('');
@@ -118,7 +119,7 @@ return
     reset.classList.remove('btn-primary')
     reset.classList.add('btn-danger')
     reset.innerHTML= 'Reset'
-    if (currentTurn === "player1"){
+    if (currentTurn === "player 1"){
         return document.getElementById('pebble-container').innerHTML = `<h4 class="display-4">Player 2 wins the game!</h4>`
     }else{
         return document.getElementById('pebble-container').innerHTML = `<h4 class="display-3"> Player 1 wins the game!</h4>`

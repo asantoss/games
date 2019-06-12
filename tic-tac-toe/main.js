@@ -80,7 +80,7 @@ function renderBoard(game){
             let cellHTML=`<button onclick="play(${i},${j})" class="mx-2 my-1" style="height: 30px;">${cell}</button>`
             container.push(cellHTML)
         }
-        container.push(`</div>`)
+        container.push(`</div>`);
     }
     return `<div class="container d-flex flex-column justify-content-start align-items-center" id="board">
     <h4 id="header">It's player ${currentTurn}'s turn!</h4>

@@ -1,8 +1,8 @@
 var content = document.getElementById('content');
 
-
+//Our abstraction of rock paper scissors where the wing condition and loss
+//Are also in the object.
 var rockPaperScissors = {
-
     rock: ["paper", "scissors", "rock"],
     paper: ["scissors", "rock", "paper"],
     scissors: ["rock", "paper", "scissors"]
@@ -18,11 +18,13 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
+function setPlayer(choice) {
+    return playerChoice = rockPaperScissors[choice]
+}
+
 function play(choice) {
-    var choiceConditions = rockPaperScissors[`${choice}`];
-    computerChoice = getRandomInt(3);
-    console.log(computerChoice)
-    computerChoice = choiceConditions[computerChoice];
+    var choiceConditions = rockPaperScissors[choice];
+    computerChoice = choiceConditions[getRandomInt(3)];
     playerChoice = choice
     if (choice == computerChoice) {
         winner = 'Tie!'
