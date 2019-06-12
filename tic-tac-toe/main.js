@@ -8,9 +8,6 @@ var ticTacToe = [
 
 var currentTurn = "O";
 
-
-
-
 function play(x,y) {
     let row = x;
     let col = y;
@@ -41,6 +38,7 @@ function winningCondition(board) {
 }
 
 
+
 //Functions to target individual cells in our 3x3 array.
 function updateCells(row, col, turn) {
     ticTacToe[row][col] = turn
@@ -64,8 +62,6 @@ function checkDiagonals(player) {
     return (getCell(0, 0) === player && getCell(1, 1) === player && getCell(2, 2) == player) ||
     (getCell(0, 2) === player && getCell(1, 1) === player && getCell(2, 0) == player);
 }
-
-
 
 
 //Render the board for the tic tac toe which is a 3x3 matrix that we can follow with

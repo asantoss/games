@@ -72,19 +72,16 @@ function renderGame(game) {
 function play(){
     x = document.getElementById('takeInput').value;
 if(nim - x > 0) {
-
     //This is our abstraction of the math that powers nims rules.
 let pebblesHTML = [];
 let pebble = `<div class="pebble"></div>`
 let p1Pebble = `<div class="pebble mx-1 my-2" style="background-color: red;"></div> `
 let p2Pebble = `<div class="pebble mx-1" style="background-color: blue;"></div> `
 nim -= x;
-
 //Every time the function is ran the amount of pebbles on the board is rerendered.
 for (var i = 0; i < nim; i++) {
     pebblesHTML.push(pebble)
 }
-
 //Since the return of rerendering the board html these give us the score for each player.
 if(currentTurn === "player 1"){ 
     currentTurn = "player 2"; 
@@ -99,12 +96,10 @@ if(currentTurn === "player 1"){
         p2Pebbles.push(p2Pebble)
     }
 } 
-
 content.innerHTML= renderGame(nim)
 document.getElementById('pebble-container').innerHTML = pebblesHTML.join('');
 document.getElementById('p1').innerHTML = p1Pebbles.join('');
 document.getElementById('p2').innerHTML = p2Pebbles.join('');
-document.getElementById('pebble-container').innerHTML = pebblesHTML.join('');
 return 
 }else if(nim - x <= 0){
 
